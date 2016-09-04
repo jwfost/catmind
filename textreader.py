@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 # CONSTANTS
 # ---------------------------
 TIME_LIMIT = 100
-TIME_INCREMENT = 0.1
+TIME_INCREMENT = 0.2
 READING_SPEED = 50.0
 MINIMUM_ACTIVATION_THRESHOLD = 0.001
 CONCEPT_DECAY = .95
@@ -97,7 +97,7 @@ while stillRunning:
     if (ticks % READING_SPEED) == 0:    # every READING_SPEED time steps, read another word
         if wordIndex < len(sensoryInput):
             nextWord = sensoryInput[wordIndex]
-            print ("t = {}, read:{}".format(t,nextWord))
+            # print ("t = {}, read:{}".format(t,nextWord))
             wordIndex += 1                # increment index so reading moves to next word
         else:
             nextWord = None
@@ -122,10 +122,16 @@ while stillRunning:
 # figure 1
 plotDataX = []
 plotDataY = []
+plotDataX1 = []
+plotDataY1 = []
 for d in data:
     if d.concept == "mortal":
         plotDataX.append (d.point.x)
         plotDataY.append (d.point.y)
-    plt.plot(plotDataX, plotDataY)
+    if d.concept == "man":
+        plotDataX1.append (d.point.x)
+        plotDataY1.append (d.point.y)
+    plt.plot(plotDataX, plotDataY, 'bo')
+    plt.plot(plotDataX1, plotDataY1, 'r+')
     plt.axis([0,TIME_LIMIT,0,2.0])
 plt.show()

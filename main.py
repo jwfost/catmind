@@ -5,7 +5,6 @@ AROUSAL = 1.0   # Analogy to temperature in Micahelis-Menten kinetics
 R = 1.0
 A = 1.0
 
-
 class Concept:
 
     def __init__(self, name, description):

@@ -1,0 +1,44 @@
+
+
+Overview
+==========
+* basic analogy is that thinking ~ catalytic reaction-diffusion system:
+* working memory ~ reaction vessel
+* concepts ~ molecules (reactants, products, and enzymes)
+* spotlight of attention ~ local heating
+* gamma binding ~ covalent & ionic binding
+* looping into the world (outputting on the input space) ~ extended mind
+* sliding window of time to calculate probabilities of co-occurrence
+
+Details
+===========
+* Concept: composed of 0+ concepts
+* Types of reactions:
+  - Combination
+      * Q: What can a new combination catalyze?
+      * A:
+  - Decomposition
+      * Only possible if a concept has 2+ components
+      * Q: How do we know what the components can catalyze?
+        - A: We must start with elemental concepts whose catalytic activity we know.
+
+
+
+Main Loop
+===========
+* read from a page to get some perceptions in working memory
+  - read k random lines, where k size of working memory
+  - each reading resets activation to 1.0
+  - all unperturbed activations decay exponentially
+* shine spotlight of attention on a subset of working memory
+  - this increases local temperature
+  - possibly surpasses activation energy for some reaction
+* determine all possible reactions for contents of working memory
+  - for a particular pair of concepts:
+    * calculate energy of bound concepts
+    * calculate energy of unbound concepts (sum)
+    - result will be a probability
+    - flip a p-biased coin to decide whether the reaction proceeds
+* if a new conceptual product is produced, write that on the page
+* whenever two concepts are simultaneously active, decrement their binding energy
+* if activation > 80%, concept enters working memory (consciousness), displacing lowest activation entry there
