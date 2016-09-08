@@ -53,10 +53,7 @@ e.concentration = .5
 s.concentration = 1
 es.concentration = 0
 p.concentration = 0
-y0 = [e.concentration, s.concentration, es.concentration, p.concentration]
-
-# Map into standard differential form
-# y0 = [E], y1 = [S], y2 = [ES], y3 = [P]
+state0 = [e.concentration, s.concentration, es.concentration, p.concentration]
 
 # Define rate constants
 # Defaults: k_f = 0.3, k_r = 0.01, k_cat = 0.1
@@ -69,19 +66,28 @@ k_r = A * exp(-((e_E + s_E) - es_E)/(R*T))
 k_cat = A * exp(-((e_E + p_E) - es_E)/(R*T))
 
 # Define Michaelis-Menten kinetics
-def func(y,t):
-	return [
-		-k_f * y[0] * y[1] + (k_cat + k_r) * y[2],
-		-k_f * y[0] * y[1] + k_r * y[2],
-		 k_f * y[0] * y[1] - k_r * y[2] - k_cat * y[2],
-		 k_cat * y[2]
-		]
+def func(state,t):
+	# unpack the state vector
+	e = state[0]
+	s = state[1]
+	es = state[2]
+	p = state[3]
+
+	# compute state derivatives
+	# the '_d' means "dot," as in "derivative."
+	e_d = -k_f * e * s + (k_cat + k_r) * es
+	s_d = -k_f * e * s + k_r * es
+	es_d = k_f * e * s - k_r * es - k_cat * es
+	p_d = k_cat * es
+
+	# return the state derivatives
+	return [e_d, s_d, es_d, p_d]
 
 # Set time range for integration
 t = np.arange(0, T_MAX, T_INC)
 
 # Integrate
-y = odeint(func, y0, t)
+y = odeint(func, state0, t)
 
 # Output
 figure()
